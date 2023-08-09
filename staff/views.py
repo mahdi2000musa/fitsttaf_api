@@ -57,6 +57,13 @@ class EndTimeSet(APIView):
         presentation.save()
         return Response(data, status=HTTP_200_OK)
 
+    def get(self, request,pk):
+        presentation = get_object_or_404(Presentation, id=pk)
+        serialize_data = PresentationSerializers(instance=presentation)
+        return Response(serialize_data.data, status=HTTP_200_OK)
+
+
+
 
 class PresentationView(APIView):
 

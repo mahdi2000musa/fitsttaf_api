@@ -253,6 +253,12 @@ class CommentView(APIView):
         except Comment.DoesNotExist:
             return Response({'message' : "comment Not found!"}, status=HTTP_404_NOT_FOUND)
 
+
+    def get(self,request,pk):
+        comment = Comment.objects.get(id=pk)
+        serialized_data = CommentSerializer(instance=comment)
+        return Response(serialized_data.data,status=HTTP_200_OK)
+
     def delete(self, request, pk):
 
         comment = get_object_or_404(Comment, id=pk)
